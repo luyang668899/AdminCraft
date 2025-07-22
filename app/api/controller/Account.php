@@ -57,8 +57,13 @@ class Account extends Frontend
     public function profile(): void
     {
         if ($this->request->isPost()) {
-            $data = $this->request->only(['id', 'avatar', 'username', 'nickname', 'gender', 'birthday', 'motto']);
-            if (!isset($data['birthday'])) $data['birthday'] = null;
+            $model = $this->auth->getUser();
+            $data  = $this->request->only(['avatar', 'username', 'nickname', 'gender', 'birthday', 'motto']);
+
+            $data['id'] = $this->auth->id;
+            if (!isset($data['birthday'])) {
+                $data['birthday'] = null;
+            }
 
             try {
                 $validate = new AccountValidate();
@@ -67,7 +72,6 @@ class Account extends Frontend
                 $this->error($e->getMessage());
             }
 
-            $model = $this->auth->getUser();
             $model->startTrans();
             try {
                 $model->save($data);
