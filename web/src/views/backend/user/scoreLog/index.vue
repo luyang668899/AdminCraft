@@ -10,9 +10,9 @@
             "
         >
             <el-button v-if="!isEmpty(state.userInfo)" v-blur class="table-header-operate">
-                <span class="table-header-operate-text">{{
-                    state.userInfo.username + '(ID:' + state.userInfo.id + ') ' + t('user.scoreLog.integral') + ':' + state.userInfo.score
-                }}</span>
+                <span class="table-header-operate-text">
+                    {{ state.userInfo.username + '(ID:' + state.userInfo.id + ') ' + t('user.scoreLog.integral') + ':' + state.userInfo.score }}
+                </span>
             </el-button>
         </TableHeader>
 
@@ -26,17 +26,16 @@
 </template>
 
 <script setup lang="ts">
-import { isEmpty, parseInt } from 'lodash-es'
+import { debounce, isEmpty, parseInt } from 'lodash-es'
 import { provide, reactive, watch } from 'vue'
-import baTableClass from '/@/utils/baTable'
-import { url } from '/@/api/backend/user/scoreLog'
-import PopupForm from './popupForm.vue'
-import Table from '/@/components/table/index.vue'
-import TableHeader from '/@/components/table/header/index.vue'
-import { baTableApi } from '/@/api/common'
-import { useRoute } from 'vue-router'
-import { add } from '/@/api/backend/user/scoreLog'
 import { useI18n } from 'vue-i18n'
+import { useRoute } from 'vue-router'
+import PopupForm from './popupForm.vue'
+import { add, url } from '/@/api/backend/user/scoreLog'
+import { baTableApi } from '/@/api/common'
+import TableHeader from '/@/components/table/header/index.vue'
+import Table from '/@/components/table/index.vue'
+import baTableClass from '/@/utils/baTable'
 
 defineOptions({
     name: 'user/scoreLog',
@@ -45,10 +44,8 @@ defineOptions({
 const { t } = useI18n()
 const route = useRoute()
 const defalutUser = (route.query.user_id ?? '') as string
-const state: {
-    userInfo: anyObj
-} = reactive({
-    userInfo: {},
+const state = reactive({
+    userInfo: {} as anyObj,
 })
 
 const baTable = new baTableClass(
@@ -99,7 +96,7 @@ baTable.getData()
 
 provide('baTable', baTable)
 
-const getUserInfo = (userId: string) => {
+const getUserInfo = debounce((userId: string) => {
     if (userId && parseInt(userId) > 0) {
         add(userId).then((res) => {
             state.userInfo = res.data.user
@@ -107,7 +104,7 @@ const getUserInfo = (userId: string) => {
     } else {
         state.userInfo = {}
     }
-}
+}, 300)
 
 getUserInfo(baTable.comSearch.form.user_id)
 
