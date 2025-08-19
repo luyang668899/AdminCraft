@@ -46,16 +46,7 @@
                         </el-tooltip>
                     </el-option>
                     <template v-if="state.total && props.pagination" #footer>
-                        <el-pagination
-                            :currentPage="state.currentPage"
-                            :page-size="state.pageSize"
-                            :pager-count="5"
-                            class="select-pagination"
-                            :layout="props.paginationLayout"
-                            :total="state.total"
-                            @current-change="onSelectCurrentPageChange"
-                            :size="config.layout.shrink ? 'small' : 'default'"
-                        />
+                        <el-pagination class="select-pagination" @current-change="onSelectCurrentPageChange" v-bind="getPaginationAttr()" />
                     </template>
                 </el-select>
             </template>
@@ -64,7 +55,7 @@
 </template>
 
 <script lang="ts" setup>
-import type { ElSelect } from 'element-plus'
+import type { ElSelect, PaginationProps } from 'element-plus'
 import { debounce, isEmpty } from 'lodash-es'
 import { computed, getCurrentInstance, nextTick, onMounted, onUnmounted, reactive, toRaw, useAttrs, useTemplateRef, watch } from 'vue'
 import { InputAttr } from '../index'
@@ -85,9 +76,8 @@ interface Props extends /* @vue-ignore */ ElSelectProps {
     params?: anyObj
     remoteUrl: string
     modelValue: valueTypes | null
-    pagination?: boolean
+    pagination?: boolean | PaginationProps
     tooltipParams?: anyObj
-    paginationLayout?: string
     labelFormatter?: (optionData: anyObj, optionKey: string) => string
     // 按下 ESC 键时直接使下拉框脱焦（默认是清理搜索词或关闭下拉面板，并且不会脱焦，造成 dialog 的按下 ESC 关闭失效）
     escBlur?: boolean
@@ -104,7 +94,6 @@ const props = withDefaults(defineProps<Props>(), {
         return {}
     },
     pagination: true,
-    paginationLayout: 'total, ->, prev, pager, next',
     disabled: false,
     escBlur: true,
 })
@@ -144,8 +133,8 @@ const state: {
     options: [],
     loading: false,
     total: 0,
-    currentPage: 1,
-    pageSize: 10,
+    currentPage: props.params.page || 1,
+    pageSize: props.params.limit || 10,
     params: props.params,
     keyword: '',
     value: valueOnClear.value,
@@ -161,6 +150,26 @@ const emits = defineEmits<{
     (e: 'update:modelValue', value: valueTypes): void
     (e: 'row', value: any): void
 }>()
+
+/**
+ * 获取分页组件属性
+ */
+const getPaginationAttr = (): Partial<PaginationProps> => {
+    const defaultPaginationAttr: Partial<PaginationProps> = {
+        pagerCount: 5,
+        total: state.total,
+        pageSize: state.pageSize,
+        currentPage: state.currentPage,
+        layout: 'total, ->, prev, pager, next',
+        size: config.layout.shrink ? 'small' : 'default',
+    }
+
+    if (typeof props.pagination === 'boolean') {
+        return defaultPaginationAttr
+    }
+
+    return { ...defaultPaginationAttr, ...props.pagination }
+}
 
 const onChangeSelect = (val: valueTypes) => {
     val = updateValue(val)
