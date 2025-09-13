@@ -1,18 +1,18 @@
-import { nextTick } from 'vue'
-import type { App } from 'vue'
 import * as elIcons from '@element-plus/icons-vue'
-import router from '/@/router/index'
-import Icon from '/@/components/icon/index.vue'
-import { useNavTabs } from '/@/stores/navTabs'
-import { useMemberCenter } from '/@/stores/memberCenter'
-import type { FormInstance } from 'element-plus'
-import { useSiteConfig } from '../stores/siteConfig'
 import { useTitle } from '@vueuse/core'
-import { i18n } from '../lang'
-import { getUrl } from './axios'
-import { adminBaseRoutePath } from '/@/router/static/adminBase'
-import { isArray, trim, trimStart } from 'lodash-es'
+import type { FormInstance } from 'element-plus'
+import { isArray, isNull, trim, trimStart } from 'lodash-es'
+import type { App } from 'vue'
+import { nextTick } from 'vue'
 import type { TranslateOptions } from 'vue-i18n'
+import { i18n } from '../lang'
+import { useSiteConfig } from '../stores/siteConfig'
+import { getUrl } from './axios'
+import Icon from '/@/components/icon/index.vue'
+import router from '/@/router/index'
+import { adminBaseRoutePath } from '/@/router/static/adminBase'
+import { useMemberCenter } from '/@/stores/memberCenter'
+import { useNavTabs } from '/@/stores/navTabs'
 
 export function registerIcons(app: App) {
     /*
@@ -318,13 +318,18 @@ export const arrayFullUrl = (relativeUrls: string | string[], domain = '') => {
  * @param fmt 格式化方式，默认：yyyy-mm-dd hh:MM:ss
  */
 export const timeFormat = (dateTime: string | number | null = null, fmt = 'yyyy-mm-dd hh:MM:ss') => {
-    if (dateTime == 'none') return i18n.global.t('None')
-    if (!dateTime) dateTime = Number(new Date())
+    if (dateTime == 'none') {
+        return i18n.global.t('None')
+    }
+
+    if (isNull(dateTime)) {
+        dateTime = Number(new Date())
+    }
     if (dateTime.toString().length === 10) {
         dateTime = +dateTime * 1000
     }
 
-    const date = new Date(dateTime)
+    const date = new Date(Number(dateTime))
     let ret
     const opt: anyObj = {
         'y+': date.getFullYear().toString(), // 年
