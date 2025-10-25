@@ -20,8 +20,9 @@
                             {{ t('module.New adjustment of dependency detected') }}
                         </span>
                         <span v-else-if="state.common.moduleState == moduleInstallState.DEPENDENT_WAIT_INSTALL">
-                            {{ t('module.This module adds new dependencies') }} </span
-                        >，
+                            {{ t('module.This module adds new dependencies') }}
+                        </span>
+                        <span>，</span>
                         <span>
                             {{ t('module.The built-in terminal of the system is automatically installing these dependencies, please wait~') }}
                         </span>
@@ -59,8 +60,9 @@
         </div>
         <div class="install-tis-box">
             <div class="install-tis">
-                {{ t('module.please') }}{{ state.common.moduleState == moduleInstallState.DISABLE ? '' : t('module.After installation 1')
-                }}{{ t('module.Manually clean up the system and browser cache') }}
+                {{ t('module.please') }}
+                {{ state.common.moduleState == moduleInstallState.DISABLE ? '' : t('module.After installation 1') }}
+                {{ t('module.Manually clean up the system and browser cache') }}
             </div>
         </div>
         <div class="install-tis-box">
@@ -114,17 +116,19 @@
                 </el-form-item>
             </div>
         </div>
-        <el-button
-            v-blur
-            class="install-done-button"
-            :disabled="state.common.dependInstallState != 'executing' || state.common.moduleState == moduleInstallState.INSTALLED ? false : true"
-            size="large"
-            type="primary"
-            v-loading="state.loading.common"
-            @click="onSubmitInstallDone"
-        >
-            {{ state.common.moduleState == moduleInstallState.DISABLE ? t('Complete') : t('module.End of installation') }}
-        </el-button>
+        <div class="install-done-button-box">
+            <el-button
+                v-blur
+                :disabled="state.common.dependInstallState != 'executing' || state.common.moduleState == moduleInstallState.INSTALLED ? false : true"
+                size="large"
+                class="install-done-button"
+                type="primary"
+                :loading="state.loading.common"
+                @click="onSubmitInstallDone"
+            >
+                {{ state.common.moduleState == moduleInstallState.DISABLE ? t('Complete') : t('module.End of installation') }}
+            </el-button>
+        </div>
     </div>
 </template>
 
@@ -244,10 +248,13 @@ const onConfirmDepend = () => {
 .color-green {
     color: var(--el-color-success);
 }
-.install-done-button {
-    display: block;
-    margin: 20px auto;
-    width: 120px;
+.install-done-button-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .install-done-button {
+        width: 120px;
+    }
 }
 .reload-hot-server-content {
     font-size: var(--el-font-size-small);

@@ -45,8 +45,9 @@
             size="large"
             type="primary"
             @click="onSubmitConflictHandle"
-            >{{ $t('Confirm') }}</el-button
         >
+            {{ $t('Confirm') }}
+        </el-button>
     </div>
 </template>
 
@@ -67,9 +68,10 @@ const onSubmitConflictHandle = () => {
         }
         dependConflict[state.common.dependConflict[key].env][state.common.dependConflict[key].depend] = state.common.dependConflict[key]['solution']
     }
-    execInstall(state.common.uid, 0, {
+    execInstall(state.common.uid, 0, '', false, {
         dependConflict: dependConflict,
         fileConflict: fileConflict,
+        conflictHandle: true,
     })
 }
 </script>

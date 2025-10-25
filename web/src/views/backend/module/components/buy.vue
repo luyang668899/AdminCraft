@@ -55,7 +55,7 @@
                             <el-button
                                 v-else
                                 :loading="state.loading.common"
-                                @click="onInstall(state.buy.info.uid, state.buy.info.id)"
+                                @click="onPreInstallModule(state.buy.info.uid, state.buy.info.id, true)"
                                 v-blur
                                 type="warning"
                             >
@@ -70,11 +70,11 @@
 </template>
 
 <script setup lang="ts">
-import { state } from '../store'
-import { onPay, currency, onInstall, specificUserName } from '../index'
-import { useBaAccount } from '/@/stores/baAccount'
-import { useI18n } from 'vue-i18n'
 import { isEmpty } from 'lodash-es'
+import { useI18n } from 'vue-i18n'
+import { currency, onPay, onPreInstallModule, specificUserName } from '../index'
+import { state } from '../store'
+import { useBaAccount } from '/@/stores/baAccount'
 
 const { t } = useI18n()
 const baAccount = useBaAccount()

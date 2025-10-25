@@ -52,8 +52,12 @@ export const state = reactive<moduleState>({
         disableDependConflict: [],
         disableParams: {},
         payType: 'wx',
+        update: false,
+        versions: [],
     },
     sysVersion: '',
+    nuxtVersion: '',
     installedModule: [],
     installedModuleUids: [],
+    installedModuleVersions: [],
 })

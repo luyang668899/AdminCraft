@@ -2,6 +2,7 @@ export default {
     'stateTitle init': 'Module installer initialization...',
     'stateTitle download': 'Downloading module...',
     'stateTitle install': 'Installing module...',
+    'stateTitle getInstallableVersion': 'Get installable version...',
     'env require': 'Composer',
     'env require-dev': 'Composer-dev',
     'env dependencies': 'NPM',
@@ -89,8 +90,7 @@ export default {
     'You need to disable this module before updating Do you want to disable it now?':
         'You need to disable this module before updating. Do you want to disable it now?',
     'Disable and update': 'Disable and update',
-    'No module purchase order was found within the expiration date':
-        'No module purchase order was found within the expiration date. Do you want to purchase the current module now?',
+    'No module purchase order was found': 'No module purchase order was found. Do you want to purchase the current module now?',
     // installConflict
     'new file': 'new file',
     'Existing files': 'Existing files',
@@ -135,6 +135,7 @@ export default {
         'Installation cancelled because the directory required by the module is occupied!',
     'Installation complete': 'Installation complete',
     'A conflict is found Please handle it manually': 'A conflict is found. Please handle it manually',
+    'Select Version': 'Select install version',
     'Wait for dependent installation': 'Wait for dependent installation',
     'The operation succeeds Please clear the system cache and refresh the browser ~':
         'The operation succeeds. Please clear the system cache and refresh the browser ~',
@@ -147,4 +148,15 @@ export default {
         'Before successfully restarting the service, you can find the button to manually restart the service from the button group on the right side of the top bar.',
     'Manual restart': 'Manual restart',
     'Restart Now': 'Restart Now',
+    // 选择安装版本
+    'Available system version': 'Available system version',
+    Description: 'Description',
+    Version: 'Version',
+    'Current installed version': 'Current installed version',
+    'Insufficient system version': 'Insufficient system version',
+    'Click to install': 'Click to install',
+    'Versions released beyond the authorization period': 'Versions released beyond the authorization period',
+    Renewal: 'Renewal',
+    'Order expiration time':
+        'The expiration time of the current order authorization is {expiration_time}, and the release time of this version is {create_time}',
 }

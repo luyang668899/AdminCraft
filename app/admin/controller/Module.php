@@ -42,13 +42,14 @@ class Module extends Backend
     public function install(): void
     {
         AdminLog::instance()->setTitle(__('Install module'));
-        $uid = $this->request->param("uid/s", '');
+        $uid    = $this->request->param("uid/s", '');
+        $update = $this->request->param("update/b", false);
         if (!$uid) {
             $this->error(__('Parameter error'));
         }
         $res = [];
         try {
-            $res = Manage::instance($uid)->install();
+            $res = Manage::instance($uid)->install($update);
         } catch (Exception $e) {
             $this->error(__($e->getMessage()), $e->getData(), $e->getCode());
         } catch (Throwable $e) {
@@ -105,24 +106,6 @@ class Module extends Backend
         }
         try {
             Manage::instance($uid)->uninstall();
-        } catch (Exception $e) {
-            $this->error(__($e->getMessage()), $e->getData(), $e->getCode());
-        } catch (Throwable $e) {
-            $this->error(__($e->getMessage()));
-        }
-        $this->success();
-    }
-
-    public function update(): void
-    {
-        AdminLog::instance()->setTitle(__('Update module'));
-        $uid   = $this->request->param("uid/s", '');
-        $token = $this->request->param("token/s", '');
-        if (!$token || !$uid) {
-            $this->error(__('Parameter error'));
-        }
-        try {
-            Manage::instance($uid)->update();
         } catch (Exception $e) {
             $this->error(__($e->getMessage()), $e->getData(), $e->getCode());
         } catch (Throwable $e) {

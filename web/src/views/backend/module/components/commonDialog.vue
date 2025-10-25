@@ -17,8 +17,11 @@
                     class="common-loading"
                 ></div>
 
+                <!-- 选择安装版本 -->
+                <SelectVersion v-if="state.common.type == 'selectVersion'" />
+
                 <!-- 安装冲突 -->
-                <InstallConflict v-if="state.common.type == 'InstallConflict'" />
+                <InstallConflict v-if="state.common.type == 'installConflict'" />
 
                 <!-- 禁用冲突 -->
                 <ConfirmFileConflict v-if="state.common.type == 'disableConfirmConflict'" />
@@ -35,10 +38,11 @@
 
 <script setup lang="ts">
 import { state } from '../store'
-import InstallConflict from './installConflict.vue'
 import CommonDone from './commonDone.vue'
-import UploadInstall from './uploadInstall.vue'
+import SelectVersion from './commonSelectVersion.vue'
 import ConfirmFileConflict from './confirmFileConflict.vue'
+import InstallConflict from './installConflict.vue'
+import UploadInstall from './uploadInstall.vue'
 </script>
 
 <style scoped lang="scss">

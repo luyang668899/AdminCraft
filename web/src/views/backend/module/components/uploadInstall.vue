@@ -19,11 +19,11 @@
 </template>
 
 <script setup lang="ts">
-import { reactive } from 'vue'
 import type { UploadFile } from 'element-plus'
-import { fileUpload } from '/@/api/common'
+import { reactive } from 'vue'
+import { onPreInstallModule } from '../index'
 import { upload } from '/@/api/backend/module'
-import { onInstall } from '../index'
+import { fileUpload } from '/@/api/common'
 
 const state = reactive({
     uploadState: 'wait-file',
@@ -38,7 +38,7 @@ const uploadModule = (file: UploadFile) => {
             upload(res.data.file.url)
                 .then((res) => {
                     state.uploadState = 'success'
-                    onInstall(res.data.info.uid, 0)
+                    onPreInstallModule(res.data.info.uid, 0, false, res.data.info.update ? true : false)
                 })
                 .catch(() => {
                     state.uploadState = 'wait-file'

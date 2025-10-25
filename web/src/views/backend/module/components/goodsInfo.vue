@@ -127,7 +127,13 @@
                                     (state.goodsInfo.state == moduleInstallState.UNINSTALLED && state.goodsInfo.purchased) ||
                                     state.goodsInfo.state == moduleInstallState.WAIT_INSTALL
                                 "
-                                @click="onInstall(state.goodsInfo.uid, state.goodsInfo.purchased)"
+                                @click="
+                                    onPreInstallModule(
+                                        state.goodsInfo.uid,
+                                        state.goodsInfo.purchased,
+                                        state.goodsInfo.state == moduleInstallState.WAIT_INSTALL ? false : true
+                                    )
+                                "
                                 :loading="state.loading.common"
                                 v-blur
                                 class="basic-button-item"
@@ -137,7 +143,7 @@
                             </el-button>
                             <el-button
                                 v-if="installButtonState.continueInstallation.includes(state.goodsInfo.state)"
-                                @click="onInstall(state.goodsInfo.uid, state.goodsInfo.purchased)"
+                                @click="onPreInstallModule(state.goodsInfo.uid, state.goodsInfo.purchased, false)"
                                 :loading="state.loading.common"
                                 v-blur
                                 class="basic-button-item"
@@ -259,17 +265,17 @@
 </template>
 
 <script setup lang="ts">
-import { state } from '../store'
-import { showInfo, currency, onBuy, onInstall, onDisable, onEnable, onRefreshTableData, loginExpired } from '../index'
-import { postUninstall, getInstallState, postUpdate } from '/@/api/backend/module'
-import { moduleInstallState } from '../types'
-import { timeFormat } from '/@/utils/common'
-import { isEmpty } from 'lodash-es'
 import { ElMessageBox } from 'element-plus'
-import { useBaAccount } from '/@/stores/baAccount'
+import { isEmpty } from 'lodash-es'
 import { useI18n } from 'vue-i18n'
+import { currency, onBuy, onDisable, onEnable, onPreInstallModule, onRefreshTableData, showInfo } from '../index'
+import { state } from '../store'
+import { moduleInstallState } from '../types'
 import Buy from './buy.vue'
 import Pay from './pay.vue'
+import { getInstallState, postUninstall } from '/@/api/backend/module'
+import { useBaAccount } from '/@/stores/baAccount'
+import { timeFormat } from '/@/utils/common'
 
 const installButtonState = {
     InstallNow: [moduleInstallState.UNINSTALLED, moduleInstallState.WAIT_INSTALL],
@@ -318,7 +324,7 @@ const unInstall = (uid: string) => {
 const onUpdate = (uid: string, order: number) => {
     // 无有效订单
     if (!order) {
-        ElMessageBox.confirm(t('module.No module purchase order was found within the expiration date'), t('Reminder'), {
+        ElMessageBox.confirm(t('module.No module purchase order was found'), t('Reminder'), {
             confirmButtonText: t('Confirm'),
             cancelButtonText: t('Cancel'),
             type: 'warning',
@@ -340,13 +346,7 @@ const onUpdate = (uid: string, order: number) => {
     getInstallState(uid)
         .then((res) => {
             if (res.data.state == moduleInstallState.DISABLE) {
-                postUpdate(uid, order)
-                    .then(() => {
-                        onInstall(uid, order)
-                    })
-                    .catch((res) => {
-                        if (loginExpired(res)) return
-                    })
+                onPreInstallModule(uid, order, true, true)
             } else {
                 ElMessageBox.confirm(t('module.You need to disable this module before updating Do you want to disable it now?'), t('Reminder'), {
                     confirmButtonText: t('module.Disable and update'),
@@ -358,8 +358,6 @@ const onUpdate = (uid: string, order: number) => {
                             uid: uid,
                             state: 0,
                             update: 1,
-                            order: order,
-                            token: baAccount.token,
                         }
                         onDisable()
                     })
