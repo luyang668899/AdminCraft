@@ -9,7 +9,7 @@
                     @click="onButtonClick(btn)"
                     :class="btn.class"
                     size="small"
-                    class="ba-table-render-buttons-item"
+                    class="ba-table-render-buttons-item ml-6"
                     :type="btn.type"
                     :loading="btn.loading && btn.loading(row, field)"
                     :disabled="btn.disabled && btn.disabled(row, field)"
@@ -32,7 +32,7 @@
                         @click="onButtonClick(btn)"
                         :class="btn.class"
                         size="small"
-                        class="ba-table-render-buttons-item"
+                        class="ba-table-render-buttons-item ml-6"
                         :type="btn.type"
                         :loading="btn.loading && btn.loading(row, field)"
                         :disabled="btn.disabled && btn.disabled(row, field)"
@@ -87,7 +87,7 @@
                     <el-button
                         :class="btn.class"
                         size="small"
-                        class="ba-table-render-buttons-item move-button"
+                        class="ba-table-render-buttons-item move-button ml-6"
                         :type="btn.type"
                         :loading="btn.loading && btn.loading(row, field)"
                         :disabled="btn.disabled && btn.disabled(row, field)"
@@ -150,9 +150,8 @@ const getTranslation = (key?: string) => {
 .ml-6 {
     display: inline-flex;
     vertical-align: middle;
-    margin-left: 6px;
 }
-.ml-6 + .el-button {
+.ml-6 + .ml-6 {
     margin-left: 6px;
 }
 </style>
