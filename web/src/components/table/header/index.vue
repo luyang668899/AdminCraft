@@ -1,7 +1,7 @@
 <template>
     <!-- 公共搜索 -->
     <transition name="el-zoom-in-bottom" mode="out-in">
-        <ComSearch v-show="props.buttons.includes('comSearch') && baTable.table.showComSearch">
+        <ComSearch v-if="props.buttons.includes('comSearch') && baTable.table.showComSearch">
             <template v-for="(slot, idx) in $slots" :key="idx" #[idx]>
                 <slot :name="idx"></slot>
             </template>
