@@ -12,19 +12,19 @@
     <div v-bind="$attrs" class="table-header ba-scroll-style">
         <slot name="refreshPrepend"></slot>
         <el-tooltip v-if="props.buttons.includes('refresh')" :content="t('Refresh')" placement="top">
-            <el-button v-blur @click="onAction('refresh', { loading: true })" color="#40485b" class="table-header-operate" type="info">
+            <el-button v-blur @click="onAction('refresh', { loading: true })" color="#40485b" class="table-header-operate btns-ml-12" type="info">
                 <Icon name="fa fa-refresh" />
             </el-button>
         </el-tooltip>
         <slot name="refreshAppend"></slot>
         <el-tooltip v-if="props.buttons.includes('add') && baTable.auth('add')" :content="t('Add')" placement="top">
-            <el-button v-blur @click="onAction('add')" class="table-header-operate" type="primary">
+            <el-button v-blur @click="onAction('add')" class="table-header-operate btns-ml-12" type="primary">
                 <Icon name="fa fa-plus" />
                 <span class="table-header-operate-text">{{ t('Add') }}</span>
             </el-button>
         </el-tooltip>
         <el-tooltip v-if="props.buttons.includes('edit') && baTable.auth('edit')" :content="t('Edit selected row')" placement="top">
-            <el-button v-blur @click="onAction('edit')" :disabled="!enableBatchOpt" class="table-header-operate" type="primary">
+            <el-button v-blur @click="onAction('edit')" :disabled="!enableBatchOpt" class="table-header-operate btns-ml-12" type="primary">
                 <Icon name="fa fa-pencil" />
                 <span class="table-header-operate-text">{{ t('Edit') }}</span>
             </el-button>
@@ -39,7 +39,7 @@
             :disabled="!enableBatchOpt"
         >
             <template #reference>
-                <div class="mlr-12">
+                <div class="btns-ml-12">
                     <el-tooltip :content="t('Delete selected row')" placement="top">
                         <el-button v-blur :disabled="!enableBatchOpt" class="table-header-operate" type="danger">
                             <Icon name="fa fa-trash" />
@@ -57,7 +57,7 @@
             <el-button
                 v-blur
                 @click="baTable.onTableHeaderAction('unfold', { unfold: !baTable.table.expandAll })"
-                class="table-header-operate"
+                class="table-header-operate btns-ml-12"
                 :type="baTable.table.expandAll ? 'danger' : 'warning'"
             >
                 <span class="table-header-operate-text">{{ baTable.table.expandAll ? t('Shrink all') : t('Expand all') }}</span>
@@ -187,11 +187,7 @@ const onChangeShowColumn = (value: string | number | boolean, field: string) => 
         margin-left: 6px;
     }
 }
-
-.mlr-12 {
-    margin-left: 12px;
-}
-.mlr-12 + .el-button {
+.btns-ml-12 + .btns-ml-12 {
     margin-left: 12px;
 }
 .table-search {
