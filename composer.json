@@ -21,10 +21,11 @@
         "topthink/think-multi-app": "1.1.1",
         "topthink/think-throttle": "2.0.2",
         "topthink/think-migration": "3.1.1",
-        "symfony/http-foundation": "^5.4|^6.4|^7.1",
+        "symfony/http-foundation": "^5.4|^6.4|^7.3",
         "phpmailer/phpmailer": "^6.8",
         "guzzlehttp/guzzle": "^7.8.1",
-        "voku/anti-xss": "^4.1",
+        "voku/anti-xss": "dev-master",
+        "voku/portable-utf8": "dev-master",
         "nelexa/zip": "^4.0.0",
         "ext-bcmath": "*",
         "ext-iconv": "*",
@@ -52,5 +53,15 @@
             "@php think service:discover",
             "@php think vendor:publish"
         ]
-    }
+    },
+    "repositories": [
+        {
+            "type": "git",
+            "url": "https://gitee.com/hello_liuye/anti-xss"
+        },
+        {
+            "type": "git",
+            "url": "https://gitee.com/hello_liuye/portable-utf8"
+        }
+    ]
 }
