@@ -24,7 +24,7 @@
         "symfony/http-foundation": "^5.4|^6.4|^7.3",
         "phpmailer/phpmailer": "^6.8",
         "guzzlehttp/guzzle": "^7.8.1",
-        "voku/anti-xss": "dev-master",
+        "build-admin/anti-xss": "dev-master",
         "voku/portable-utf8": "dev-master",
         "nelexa/zip": "^4.0.0",
         "ext-bcmath": "*",
@@ -53,15 +53,5 @@
             "@php think service:discover",
             "@php think vendor:publish"
         ]
-    },
-    "repositories": [
-        {
-            "type": "git",
-            "url": "https://gitee.com/hello_liuye/anti-xss"
-        },
-        {
-            "type": "git",
-            "url": "https://gitee.com/hello_liuye/portable-utf8"
-        }
-    ]
+    }
 }
