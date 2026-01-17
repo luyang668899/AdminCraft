@@ -1,12 +1,12 @@
 <template>
     <!-- 公共搜索 -->
-    <transition name="el-zoom-in-bottom" mode="out-in">
+    <el-collapse-transition>
         <ComSearch v-if="props.buttons.includes('comSearch') && baTable.table.showComSearch">
             <template v-for="(slot, idx) in $slots" :key="idx" #[idx]>
                 <slot :name="idx"></slot>
             </template>
         </ComSearch>
-    </transition>
+    </el-collapse-transition>
 
     <!-- 操作按钮组 -->
     <div v-bind="$attrs" class="table-header ba-scroll-style">
