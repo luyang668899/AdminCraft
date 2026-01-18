@@ -316,7 +316,8 @@ export default class baTable {
             [
                 'com-search',
                 () => {
-                    this.table.filter!.search = this.getComSearchData()
+                    // 主动触发公共搜索，采用覆盖模式设定请求筛选数据
+                    this.setFilterSearchData(this.getComSearchData(), 'cover')
 
                     // 刷新表格
                     this.onTableHeaderAction('refresh', { event: 'com-search', data: this.table.filter!.search })
@@ -491,15 +492,17 @@ export default class baTable {
         const route = useRoute()
         this.table.routePath = route.fullPath
 
-        // 初始化公共搜索表单数据和字段 Map
-        this.initComSearch()
+        // 按需初始化公共搜索表单数据和字段Map
+        if (this.comSearch.fieldData.size === 0) {
+            this.initComSearch()
+        }
 
         if (this.table.acceptQuery && !isEmpty(route.query)) {
             // 根据当前 URL 的 query 初始化公共搜索默认值
             this.setComSearchData(route.query)
 
             // 获取公共搜索数据合并至表格筛选条件
-            this.table.filter!.search = this.getComSearchData().concat(this.table.filter?.search ?? [])
+            this.setFilterSearchData(this.getComSearchData(), 'merge')
         }
     }
 
