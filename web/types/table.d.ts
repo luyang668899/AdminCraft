@@ -36,7 +36,7 @@ declare global {
             limit?: number
             order?: string
             quickSearch?: string
-            search?: comSearchData[]
+            search?: ComSearchData[]
             [key: string]: any
         }
 
@@ -477,7 +477,7 @@ declare global {
     /**
      * 公共搜索事件返回的 Data
      */
-    interface comSearchData {
+    interface ComSearchData {
         field: string
         val: string | string[] | number | number[]
         operator: string

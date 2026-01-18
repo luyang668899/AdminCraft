@@ -607,7 +607,7 @@ export default class baTable {
             this.initComSearch()
         }
 
-        const comSearchData: comSearchData[] = []
+        const comSearchData: ComSearchData[] = []
 
         for (const key in this.comSearch.form) {
             if (!this.comSearch.fieldData.has(key)) continue
