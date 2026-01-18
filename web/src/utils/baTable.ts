@@ -617,7 +617,10 @@ export default class baTable {
 
             let val = null
             const fieldDataTemp = this.comSearch.fieldData.get(key)
-            if (fieldDataTemp.render == 'datetime' && (fieldDataTemp.operator == 'RANGE' || fieldDataTemp.operator == 'NOT RANGE')) {
+            if (
+                (fieldDataTemp.render == 'datetime' || fieldDataTemp.comSearchRender == 'datetime' || fieldDataTemp.comSearchRender == 'date') &&
+                (fieldDataTemp.operator == 'RANGE' || fieldDataTemp.operator == 'NOT RANGE')
+            ) {
                 // 时间范围
                 if (this.comSearch.form[key] && this.comSearch.form[key].length >= 2) {
                     if (fieldDataTemp.comSearchRender == 'date') {

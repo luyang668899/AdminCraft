@@ -40,7 +40,10 @@
 
                             <!-- 时间范围 -->
                             <el-col
-                                v-else-if="item.render == 'datetime' && (item.operator == 'RANGE' || item.operator == 'NOT RANGE')"
+                                v-else-if="
+                                    (item.render == 'datetime' || item.comSearchRender == 'datetime' || item.comSearchRender == 'date') &&
+                                    (item.operator == 'RANGE' || item.operator == 'NOT RANGE')
+                                "
                                 :xs="24"
                                 :sm="12"
                             >
@@ -88,7 +91,7 @@
                                         <!-- 时间筛选 -->
                                         <el-date-picker
                                             class="datetime-picker w100"
-                                            v-if="item.render == 'datetime' || item.comSearchRender == 'date'"
+                                            v-if="item.render == 'datetime' || item.comSearchRender == 'date' || item.comSearchRender == 'datetime'"
                                             v-model="baTable.comSearch.form[item.prop!]"
                                             :type="item.comSearchRender == 'date' ? 'date' : 'datetime'"
                                             :value-format="item.comSearchRender == 'date' ? 'YYYY-MM-DD' : 'YYYY-MM-DD HH:mm:ss'"
