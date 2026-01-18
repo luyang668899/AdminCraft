@@ -550,9 +550,14 @@ export default class baTable {
     }
 
     /**
-     * 设置公共搜索数据
+     * 设置公共搜索表单数据
      */
     setComSearchData = (query: anyObj) => {
+        // 必需已经完成公共搜索数据的初始化
+        if (this.comSearch.fieldData.size === 0) {
+            this.initComSearch()
+        }
+
         for (const key in this.table.column) {
             const prop = this.table.column[key].prop
             if (prop && typeof query[prop] !== 'undefined') {
@@ -594,9 +599,14 @@ export default class baTable {
     }
 
     /**
-     * 获取公共搜索数据
+     * 获取公共搜索表单数据
      */
     getComSearchData = () => {
+        // 必需已经完成公共搜索数据的初始化
+        if (this.comSearch.fieldData.size === 0) {
+            this.initComSearch()
+        }
+
         const comSearchData: comSearchData[] = []
 
         for (const key in this.comSearch.form) {
