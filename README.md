@@ -100,6 +100,7 @@
 - [文档：doc.buildadmin.com](https://doc.buildadmin.com/)
 - 加群：[687903819（>960/1000）](https://jq.qq.com/?_wv=1027&k=QwtXa14c)、[751852082（>1990/2000）](https://jq.qq.com/?_wv=1027&k=c8a7iSk8)、[1039646575](http://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=paVQA1dlpsVNHTla-ZAts6e4pPK4va9R&authKey=Eto0dq9DOuYldJPl6URFAXXHlG2AFQtPUBxNHEByEiuSg9OraxMniXIaWFt46OKi&noverify=0&group_code=1039646575)
 - [Gitee仓库](https://gitee.com/wonderful-code/buildadmin)、[GitHub仓库](https://github.com/build-admin/BuildAdmin)
+- [备用文档：docs.buildadmin.net](https://docs.buildadmin.net/)
 - [官方邮箱 hi@buildadmin.com](mailto:hi@buildadmin.com)
 
 ### 项目预览
