@@ -29,7 +29,7 @@ const menuWidth = computed(() => config.menuWidth())
 .layout-aside-Default:not(.shrink) {
     background: var(--ba-bg-color-overlay);
     margin: 16px 0 16px 16px;
-    height: calc(100vh - 32px);
+    height: calc(100% - 32px);
     box-shadow: var(--el-box-shadow-light);
     border-radius: var(--el-border-radius-base);
     overflow: hidden;
@@ -41,7 +41,7 @@ const menuWidth = computed(() => config.menuWidth())
 .layout-aside-Double {
     background: var(--ba-bg-color-overlay);
     margin: 0;
-    height: 100vh;
+    height: 100%;
     overflow: hidden;
     transition: width 0.3s ease;
     width: v-bind(menuWidth);

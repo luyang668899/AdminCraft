@@ -31,15 +31,8 @@ const state = reactive({
 })
 
 const verticalMenusScrollbarHeight = computed(() => {
-    let menuTopBarHeight = 0
-    if (config.layout.menuShowTopBar) {
-        menuTopBarHeight = 50
-    }
-    if (config.layout.layoutMode == 'Default') {
-        return 'calc(100vh - ' + (32 + menuTopBarHeight) + 'px)'
-    } else {
-        return 'calc(100vh - ' + menuTopBarHeight + 'px)'
-    }
+    const menuTopBarHeight = config.layout.menuShowTopBar ? 50 : 0
+    return 'calc(100% - ' + menuTopBarHeight + 'px)'
 })
 
 /**
@@ -81,7 +74,6 @@ onBeforeRouteUpdate((to) => {
 }
 .layouts-menu-vertical {
     border: 0;
-    padding-bottom: 30px;
     --el-menu-bg-color: v-bind('config.getColorVal("menuBackground")');
     --el-menu-text-color: v-bind('config.getColorVal("menuColor")');
     --el-menu-active-color: v-bind('config.getColorVal("menuActiveColor")');
