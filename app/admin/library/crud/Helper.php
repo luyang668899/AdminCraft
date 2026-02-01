@@ -50,7 +50,7 @@ class Helper
      * 子级菜单数组(权限节点)
      * @var array
      */
-    protected static array $menuChildren = [
+    public static array $menuChildren = [
         ['type' => 'button', 'title' => '查看', 'name' => '/index', 'status' => 1],
         ['type' => 'button', 'title' => '添加', 'name' => '/add', 'status' => 1],
         ['type' => 'button', 'title' => '编辑', 'name' => '/edit', 'status' => 1],

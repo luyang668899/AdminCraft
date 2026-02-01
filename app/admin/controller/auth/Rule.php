@@ -4,9 +4,11 @@ namespace app\admin\controller\auth;
 
 use ba\Tree;
 use Throwable;
+use app\common\library\Menu;
 use app\admin\model\AdminRule;
 use app\admin\model\AdminGroup;
 use app\common\controller\Backend;
+use app\admin\library\crud\Helper;
 
 class Rule extends Backend
 {
@@ -109,15 +111,30 @@ class Rule extends Backend
                 }
                 $result = $this->model->save($data);
 
-                // 检查所有非超管的分组是否应该拥有此权限
+                // 检查有那些分组可以拥有新增菜单的权限
                 if (!empty($data['pid'])) {
-                    $groups = AdminGroup::where('rules', '<>', '*')->select();
-                    foreach ($groups as $group) {
-                        $rules = explode(',', $group->rules);
-                        if (in_array($data['pid'], $rules) && !in_array($this->model->id, $rules)) {
-                            $rules[]      = $this->model->id;
-                            $group->rules = implode(',', $rules);
-                            $group->save();
+                    $this->autoAssignPermission($this->model->id, $data['pid']);
+                }
+
+                // 创建子级权限节点
+                if ($data['type'] == 'menu' && !empty($data['buttons'])) {
+                    $newButtons = [];
+                    foreach ($data['buttons'] as $button) {
+                        foreach (Helper::$menuChildren as $menuChild) {
+                            if ($menuChild['name'] == '/' . $button) {
+                                $menuChild['name'] = $data['name'] . $menuChild['name'];
+                                $newButtons[]      = $menuChild;
+                            }
+                        }
+                    }
+                    if (!empty($newButtons)) {
+                        // 创建子级权限节点
+                        Menu::create($newButtons, $this->model->id, 'ignore');
+
+                        // 检查有那些分组可以拥有新增的子级权限
+                        $children = AdminRule::where('pid', $this->model->id)->select();
+                        foreach ($children as $child) {
+                            $this->autoAssignPermission($child['id'], $this->model->id);
                         }
                     }
                 }
@@ -270,5 +287,21 @@ class Rule extends Backend
 
         // 如果要求树状，此处先组装好 children
         return $this->assembleTree ? $this->tree->assembleChild($rules) : $rules;
+    }
+
+    /**
+     * 检查所有非超管的分组是否应该拥有某个权限
+     */
+    private function autoAssignPermission(int $id, int $pid): void
+    {
+        $groups = AdminGroup::where('rules', '<>', '*')->select();
+        foreach ($groups as $group) {
+            $rules = explode(',', $group->rules);
+            if (in_array($pid, $rules) && !in_array($id, $rules)) {
+                $rules[]      = $id;
+                $group->rules = implode(',', $rules);
+                $group->save();
+            }
+        }
     }
 }

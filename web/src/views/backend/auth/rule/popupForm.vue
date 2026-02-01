@@ -152,6 +152,23 @@
                         ></el-input>
                     </el-form-item>
                     <FormItem
+                        v-if="baTable.form.operate == 'Add' && baTable.form.items!.type == 'menu'"
+                        :label="t('auth.rule.Create Page Button')"
+                        v-model="baTable.form.items!.buttons"
+                        type="selects"
+                        :input-attr="{
+                            content: {
+                                index: t('auth.rule.Create Page Button index'),
+                                add: t('auth.rule.Create Page Button add'),
+                                edit: t('auth.rule.Create Page Button edit'),
+                                del: t('auth.rule.Create Page Button del'),
+                                sortable: t('auth.rule.Create Page Button sortable'),
+                            },
+                        }"
+                        :placeholder="t('auth.rule.Please select the button for automatically creating the desired page')"
+                        :block-help="t('auth.rule.Create Page Button tips')"
+                    />
+                    <FormItem
                         :label="t('auth.rule.cache')"
                         v-model="baTable.form.items!.keepalive"
                         type="radio"

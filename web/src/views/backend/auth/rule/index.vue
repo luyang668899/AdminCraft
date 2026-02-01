@@ -83,6 +83,7 @@ const baTable = new baTableClass(
             keepalive: 0,
             status: 1,
             icon: 'fa fa-circle-o',
+            buttons: ['index', 'add', 'edit', 'del'],
         },
     }
 )
