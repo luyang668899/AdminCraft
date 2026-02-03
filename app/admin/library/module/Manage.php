@@ -61,7 +61,7 @@ class Manage
         if (is_null(self::$instance)) {
             self::$instance = new static($uid);
         }
-        return self::$instance;
+        return self::$instance->setModuleUid($uid);
     }
 
     public function __construct(string $uid)
@@ -76,8 +76,7 @@ class Manage
         }
 
         if ($uid) {
-            $this->uid        = $uid;
-            $this->modulesDir = $this->installDir . $uid . DIRECTORY_SEPARATOR;
+            $this->setModuleUid($uid);
         }
     }
 
@@ -173,8 +172,7 @@ class Manage
             throw new Exception('Basic configuration of the Module is incomplete');
         }
 
-        $this->uid        = $info['uid'];
-        $this->modulesDir = $this->installDir . $info['uid'] . DIRECTORY_SEPARATOR;
+        $this->setModuleUid($info['uid']);
 
         $upgrade = false;
         if (is_dir($this->modulesDir)) {
@@ -962,5 +960,12 @@ class Manage
             }
         }
         return true;
+    }
+
+    public function setModuleUid(string $uid): static
+    {
+        $this->uid        = $uid;
+        $this->modulesDir = $this->installDir . $uid . DIRECTORY_SEPARATOR;
+        return $this;
     }
 }
