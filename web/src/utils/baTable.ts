@@ -581,6 +581,10 @@ export default class baTable {
                                 }
                             }
                         }
+                    } else if (this.table.column[key].comSearchRender == 'time') {
+                        if (range && range.length >= 2) {
+                            this.comSearch.form[prop] = [range[0], range[1]]
+                        }
                     } else {
                         this.comSearch.form[prop + '-start'] = range[0] ?? ''
                         this.comSearch.form[prop + '-end'] = range[1] ?? ''
@@ -618,14 +622,15 @@ export default class baTable {
             let val = null
             const fieldDataTemp = this.comSearch.fieldData.get(key)
             if (
-                (fieldDataTemp.render == 'datetime' || fieldDataTemp.comSearchRender == 'datetime' || fieldDataTemp.comSearchRender == 'date') &&
+                (fieldDataTemp.render == 'datetime' || ['datetime', 'date', 'time'].includes(fieldDataTemp.comSearchRender)) &&
                 (fieldDataTemp.operator == 'RANGE' || fieldDataTemp.operator == 'NOT RANGE')
             ) {
-                // 时间范围
                 if (this.comSearch.form[key] && this.comSearch.form[key].length >= 2) {
+                    // 日期范围
                     if (fieldDataTemp.comSearchRender == 'date') {
                         val = this.comSearch.form[key][0] + ' 00:00:00' + ',' + this.comSearch.form[key][1] + ' 23:59:59'
                     } else {
+                        // 时间范围、时间日期范围
                         val = this.comSearch.form[key][0] + ',' + this.comSearch.form[key][1]
                     }
                 }
