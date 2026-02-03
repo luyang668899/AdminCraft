@@ -3,6 +3,7 @@ export default {
     width: 'Width',
     sortable: 'sortable',
     operator: 'Search operator',
+    comSearchRender: 'Common search render',
     render: 'table column render',
     timeFormat: 'Format',
     step: 'Step',

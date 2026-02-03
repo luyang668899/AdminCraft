@@ -3,6 +3,7 @@ export default {
     width: '表格列宽度',
     sortable: '字段排序',
     operator: '公共搜索操作符',
+    comSearchRender: '公共搜索渲染方案',
     render: '渲染方案',
     timeFormat: '格式化方式',
     step: '步进值',

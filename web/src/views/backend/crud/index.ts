@@ -1,7 +1,7 @@
 import { reactive } from 'vue'
+import { fieldData, npuaFalse } from '/@/components/baInput/helper'
 import { i18n } from '/@/lang/index'
 import { validatorType } from '/@/utils/validate'
-import { npuaFalse, fieldData } from '/@/components/baInput/helper'
 
 /**
  * 字段修改类型标识
@@ -475,6 +475,18 @@ const tableBaseAttr = {
             FIND_IN_SET: 'FIND_IN_SET',
         },
     },
+    comSearchRender: {
+        type: 'select',
+        value: 'string',
+        options: {
+            string: i18n.global.t('utils.string'),
+            select: i18n.global.t('utils.select'),
+            remoteSelect: i18n.global.t('utils.remote select'),
+            time: i18n.global.t('utils.time') + i18n.global.t('utils.choice'),
+            date: i18n.global.t('utils.date') + i18n.global.t('utils.choice'),
+            datetime: i18n.global.t('utils.time date') + i18n.global.t('utils.choice'),
+        },
+    },
     sortable: {
         type: 'select',
         value: 'false',
@@ -553,6 +565,7 @@ export const designTypes: anyObj = {
         table: {
             render: getTableAttr('render', 'datetime'),
             operator: getTableAttr('operator', 'RANGE'),
+            comSearchRender: getTableAttr('comSearchRender', 'datetime'),
             sortable: getTableAttr('sortable', 'custom'),
             width: {
                 type: 'number',
@@ -571,7 +584,8 @@ export const designTypes: anyObj = {
     string: {
         name: i18n.global.t('utils.string'),
         table: {
-            ...tableBaseAttr,
+            render: getTableAttr('render', 'none'),
+            sortable: getTableAttr('sortable', 'false'),
             operator: getTableAttr('operator', 'LIKE'),
         },
         form: formBaseAttr,
@@ -589,7 +603,8 @@ export const designTypes: anyObj = {
     number: {
         name: i18n.global.t('utils.number'),
         table: {
-            ...tableBaseAttr,
+            render: getTableAttr('render', 'none'),
+            sortable: getTableAttr('sortable', 'false'),
             operator: getTableAttr('operator', 'RANGE'),
         },
         form: {
@@ -604,7 +619,8 @@ export const designTypes: anyObj = {
     float: {
         name: i18n.global.t('utils.float'),
         table: {
-            ...tableBaseAttr,
+            render: getTableAttr('render', 'none'),
+            sortable: getTableAttr('sortable', 'false'),
             operator: getTableAttr('operator', 'RANGE'),
         },
         form: {
@@ -619,7 +635,8 @@ export const designTypes: anyObj = {
     radio: {
         name: i18n.global.t('utils.radio'),
         table: {
-            ...tableBaseAttr,
+            operator: getTableAttr('operator', 'eq'),
+            sortable: getTableAttr('sortable', 'false'),
             render: getTableAttr('render', 'tag'),
         },
         form: formBaseAttr,
@@ -627,7 +644,7 @@ export const designTypes: anyObj = {
     checkbox: {
         name: i18n.global.t('utils.checkbox'),
         table: {
-            ...tableBaseAttr,
+            sortable: getTableAttr('sortable', 'false'),
             render: getTableAttr('render', 'tags'),
             operator: getTableAttr('operator', 'FIND_IN_SET'),
         },
@@ -636,7 +653,8 @@ export const designTypes: anyObj = {
     switch: {
         name: i18n.global.t('utils.switch'),
         table: {
-            ...tableBaseAttr,
+            operator: getTableAttr('operator', 'eq'),
+            sortable: getTableAttr('sortable', 'false'),
             render: getTableAttr('render', 'switch'),
         },
         form: formBaseAttr,
@@ -664,7 +682,8 @@ export const designTypes: anyObj = {
     datetime: {
         name: i18n.global.t('utils.time date') + i18n.global.t('utils.choice'),
         table: {
-            operator: getTableAttr('operator', 'eq'),
+            operator: getTableAttr('operator', 'RANGE'),
+            comSearchRender: getTableAttr('comSearchRender', 'datetime'),
             sortable: getTableAttr('sortable', 'custom'),
             width: {
                 type: 'number',
@@ -690,7 +709,8 @@ export const designTypes: anyObj = {
     date: {
         name: i18n.global.t('utils.date') + i18n.global.t('utils.choice'),
         table: {
-            operator: getTableAttr('operator', 'eq'),
+            operator: getTableAttr('operator', 'RANGE'),
+            comSearchRender: getTableAttr('comSearchRender', 'date'),
             sortable: getTableAttr('sortable', 'custom'),
         },
         form: {
@@ -701,7 +721,8 @@ export const designTypes: anyObj = {
     time: {
         name: i18n.global.t('utils.time') + i18n.global.t('utils.choice'),
         table: {
-            operator: getTableAttr('operator', 'eq'),
+            operator: getTableAttr('operator', 'RANGE'),
+            comSearchRender: getTableAttr('comSearchRender', 'time'),
             sortable: getTableAttr('sortable', 'custom'),
         },
         form: formBaseAttr,
@@ -709,7 +730,8 @@ export const designTypes: anyObj = {
     select: {
         name: i18n.global.t('utils.select'),
         table: {
-            ...tableBaseAttr,
+            operator: getTableAttr('operator', 'eq'),
+            sortable: getTableAttr('sortable', 'false'),
             render: getTableAttr('render', 'tag'),
         },
         form: {
@@ -723,7 +745,7 @@ export const designTypes: anyObj = {
     selects: {
         name: i18n.global.t('utils.select') + i18n.global.t('crud.state.Multi'),
         table: {
-            ...tableBaseAttr,
+            sortable: getTableAttr('sortable', 'false'),
             render: getTableAttr('render', 'tags'),
             operator: getTableAttr('operator', 'FIND_IN_SET'),
         },
