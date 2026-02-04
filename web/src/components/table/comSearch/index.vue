@@ -60,6 +60,7 @@
                                             :end-placeholder="getPlaceholder(item.operatorPlaceholder, 1, $t('el.datepicker.endDate'))"
                                             :value-format="item.comSearchRender == 'date' ? 'YYYY-MM-DD' : 'YYYY-MM-DD HH:mm:ss'"
                                             :teleported="false"
+                                            v-bind="item.comSearchInputAttr"
                                         />
                                     </div>
                                 </div>
@@ -83,6 +84,7 @@
                                             :start-placeholder="getPlaceholder(item.operatorPlaceholder, 0, $t('el.datepicker.startTime'))"
                                             :end-placeholder="getPlaceholder(item.operatorPlaceholder, 1, $t('el.datepicker.endTime'))"
                                             value-format="HH:mm:ss"
+                                            v-bind="item.comSearchInputAttr"
                                         />
                                     </div>
                                 </div>
@@ -99,6 +101,7 @@
                                             type="string"
                                             v-model="baTable.comSearch.form[item.prop! + '-start']"
                                             :clearable="true"
+                                            v-bind="item.comSearchInputAttr"
                                         ></el-input>
                                         <div class="range-separator">{{ $t('To') }}</div>
                                         <el-input
@@ -106,11 +109,17 @@
                                             type="string"
                                             v-model="baTable.comSearch.form[item.prop! + '-end']"
                                             :clearable="true"
+                                            v-bind="item.comSearchInputAttr"
                                         ></el-input>
                                     </div>
                                     <!-- 是否 [NOT] NULL -->
                                     <div v-else-if="item.operator == 'NULL' || item.operator == 'NOT NULL'" class="com-search-col-input">
-                                        <el-checkbox v-model="baTable.comSearch.form[item.prop!]" :label="item.operator" size="large"></el-checkbox>
+                                        <el-checkbox
+                                            v-model="baTable.comSearch.form[item.prop!]"
+                                            :label="item.operator"
+                                            size="large"
+                                            v-bind="item.comSearchInputAttr"
+                                        ></el-checkbox>
                                     </div>
                                     <div v-else-if="item.operator" class="com-search-col-input">
                                         <!-- 时间日期筛选 -->
@@ -122,6 +131,7 @@
                                             :value-format="item.comSearchRender == 'date' ? 'YYYY-MM-DD' : 'YYYY-MM-DD HH:mm:ss'"
                                             :placeholder="getPlaceholder(item.operatorPlaceholder)"
                                             :teleported="false"
+                                            v-bind="item.comSearchInputAttr"
                                         />
 
                                         <!-- 时间筛选 -->
@@ -131,6 +141,7 @@
                                             v-model="baTable.comSearch.form[item.prop!]"
                                             :placeholder="getPlaceholder(item.operatorPlaceholder)"
                                             value-format="HH:mm:ss"
+                                            v-bind="item.comSearchInputAttr"
                                         />
 
                                         <!-- tag、tags、select -->
@@ -144,6 +155,7 @@
                                             v-model="baTable.comSearch.form[item.prop!]"
                                             :multiple="item.operator == 'IN' || item.operator == 'NOT IN'"
                                             :clearable="true"
+                                            v-bind="item.comSearchInputAttr"
                                         >
                                             <el-option v-for="(opt, okey) in item.replaceValue" :key="item.prop! + okey" :label="opt" :value="okey" />
                                         </el-select>
@@ -153,7 +165,7 @@
                                             v-else-if="item.comSearchRender == 'remoteSelect'"
                                             type="remoteSelect"
                                             v-model="baTable.comSearch.form[item.prop!]"
-                                            :attr="item.remote"
+                                            :attr="{ ...item.remote, ...item.comSearchInputAttr }"
                                             :placeholder="getPlaceholder(item.operatorPlaceholder)"
                                         />
 
@@ -164,6 +176,7 @@
                                             v-model="baTable.comSearch.form[item.prop!]"
                                             :clearable="true"
                                             class="w100"
+                                            v-bind="item.comSearchInputAttr"
                                         >
                                             <template v-if="!isEmpty(item.replaceValue)">
                                                 <el-option
@@ -186,6 +199,7 @@
                                             type="string"
                                             v-model="baTable.comSearch.form[item.prop!]"
                                             :clearable="true"
+                                            v-bind="item.comSearchInputAttr"
                                         ></el-input>
                                     </div>
                                 </div>
