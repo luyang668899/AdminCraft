@@ -4,6 +4,8 @@ export default {
     sortable: 'sortable',
     operator: 'Search operator',
     comSearchRender: 'Common search render',
+    comSearchInputAttr: 'Common search render input extend properties',
+    comSearchInputAttrTip: 'Remote pull-down field, no need to fill in the mandatory attributes of the component.',
     render: 'table column render',
     timeFormat: 'Format',
     step: 'Step',

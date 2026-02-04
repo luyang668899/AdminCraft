@@ -719,31 +719,40 @@ class Crud extends Backend
                 $columnDict = $this->getColumnDict($columns[$relationField], $relationFieldLangPrefix);
 
                 // 表格列
-                $columns[$relationField]['designType']      = $field['designType'];
-                $columns[$relationField]['table']['render'] = 'tags';
-                if ($field['designType'] == 'remoteSelects') {
-                    $columns[$relationField]['table']['operator'] = 'false';
-                    $this->indexVueData['tableColumn'][]          = $this->getTableColumn($columns[$relationField], $columnDict, $relationFieldPrefix, $relationFieldLangPrefix);
+                $columns[$relationField]['designType'] = $field['designType'];
+                $columns[$relationField]['form']       = $field['form'] + $columns[$relationField]['form'];
+                $columns[$relationField]['table']      = $field['table'] + $columns[$relationField]['table'];
 
-                    // 额外生成一个公共搜索，渲染为远程下拉的列
-                    unset($columns[$relationField]['table']['render']);
-                    $columns[$relationField]['table']['label']           = "t('" . $this->webTranslate . $relationFieldLangPrefix . $columns[$relationField]['name'] . "')";
-                    $columns[$relationField]['name']                     = $field['name'];
-                    $columns[$relationField]['table']['show']            = 'false';
-                    $columns[$relationField]['table']['operator']        = 'FIND_IN_SET';
-                    $columns[$relationField]['table']['comSearchRender'] = 'remoteSelect';
+                // 公共搜索渲染为远程下拉时，远程下拉组件的必填属性
+                $remoteAttr = [
+                    'pk'        => $this->getRemoteSelectPk($field),
+                    'field'     => $field['form']['remote-field'] ?? 'name',
+                    'remoteUrl' => $this->getRemoteSelectUrl($field),
+                ];
 
-                    $columns[$relationField]['table']['remote'] = [
-                        'pk'        => $this->getRemoteSelectPk($field),
-                        'field'     => $field['form']['remote-field'] ?? 'name',
-                        'remoteUrl' => $this->getRemoteSelectUrl($field),
-                        'multiple'  => 'true',
-                    ];
-                    $this->indexVueData['tableColumn'][]        = $this->getTableColumn($columns[$relationField], $columnDict, '', $relationFieldLangPrefix);
+                if ($columns[$relationField]['table']['comSearchRender'] == 'remoteSelect') {
+                    // 生成为已关闭公共搜索的表格列
+                    $renderColumn                      = $columns[$relationField];
+                    $renderColumn['table']['operator'] = 'false';
+                    unset($renderColumn['table']['comSearchRender']);
+                    $this->indexVueData['tableColumn'][] = $this->getTableColumn($renderColumn, $columnDict, $relationFieldPrefix, $relationFieldLangPrefix);
+
+                    // 额外生成一个公共搜索渲染为远程下拉的列，关闭表格列表显示
+                    $columns[$relationField]['table']['show']  = 'false';
+                    $columns[$relationField]['table']['label'] = "t('" . $this->webTranslate . $relationFieldLangPrefix . $columns[$relationField]['name'] . "')";
+                    $columns[$relationField]['name']           = $field['name'];
+
+                    // 标记多选
+                    if ($field['designType'] == 'remoteSelects') {
+                        $remoteAttr['multiple'] = 'true';
+                    }
+
+                    $columnData                       = $this->getTableColumn($columns[$relationField], $columnDict, '', $relationFieldLangPrefix);
+                    $columnData['comSearchInputAttr'] = array_merge($remoteAttr, $columnData['comSearchInputAttr'] ?? []);
                 } else {
-                    $columns[$relationField]['table']['operator'] = 'LIKE';
-                    $this->indexVueData['tableColumn'][]          = $this->getTableColumn($columns[$relationField], $columnDict, $relationFieldPrefix, $relationFieldLangPrefix);
+                    $columnData = $this->getTableColumn($columns[$relationField], $columnDict, $relationFieldPrefix, $relationFieldLangPrefix);
                 }
+                $this->indexVueData['tableColumn'][] = $columnData;
             }
         }
         $this->langTsData['en']    = array_merge($this->langTsData['en'], $dictEn);
@@ -950,8 +959,9 @@ class Crud extends Backend
         }
 
         // 合并前端预设的字段表格属性
-        if (isset($field['table']) && $field['table']) {
-            $column = array_merge($column, $field['table']);
+        if (!empty($field['table'])) {
+            $column                       = array_merge($column, $field['table']);
+            $column['comSearchInputAttr'] = str_attr_to_array($column['comSearchInputAttr'] ?? '');
         }
 
         // 需要值替换的渲染类型

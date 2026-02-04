@@ -487,6 +487,14 @@ const tableBaseAttr = {
             datetime: i18n.global.t('utils.time date') + i18n.global.t('utils.choice'),
         },
     },
+    comSearchInputAttr: {
+        type: 'textarea',
+        value: '',
+        placeholder: i18n.global.t('crud.crud.comSearchInputAttrTip'),
+        attr: {
+            rows: 3,
+        },
+    },
     sortable: {
         type: 'select',
         value: 'false',
@@ -566,6 +574,7 @@ export const designTypes: anyObj = {
             render: getTableAttr('render', 'datetime'),
             operator: getTableAttr('operator', 'RANGE'),
             comSearchRender: getTableAttr('comSearchRender', 'datetime'),
+            comSearchInputAttr: getTableAttr('comSearchInputAttr', ''),
             sortable: getTableAttr('sortable', 'custom'),
             width: {
                 type: 'number',
@@ -684,6 +693,7 @@ export const designTypes: anyObj = {
         table: {
             operator: getTableAttr('operator', 'RANGE'),
             comSearchRender: getTableAttr('comSearchRender', 'datetime'),
+            comSearchInputAttr: getTableAttr('comSearchInputAttr', ''),
             sortable: getTableAttr('sortable', 'custom'),
             width: {
                 type: 'number',
@@ -711,6 +721,7 @@ export const designTypes: anyObj = {
         table: {
             operator: getTableAttr('operator', 'RANGE'),
             comSearchRender: getTableAttr('comSearchRender', 'date'),
+            comSearchInputAttr: getTableAttr('comSearchInputAttr', ''),
             sortable: getTableAttr('sortable', 'custom'),
         },
         form: {
@@ -723,6 +734,7 @@ export const designTypes: anyObj = {
         table: {
             operator: getTableAttr('operator', 'RANGE'),
             comSearchRender: getTableAttr('comSearchRender', 'time'),
+            comSearchInputAttr: getTableAttr('comSearchInputAttr', ''),
             sortable: getTableAttr('sortable', 'custom'),
         },
         form: formBaseAttr,
@@ -760,7 +772,10 @@ export const designTypes: anyObj = {
     remoteSelect: {
         name: i18n.global.t('utils.remote select') + i18n.global.t('utils.choice'),
         table: {
+            render: getTableAttr('render', 'tags'),
             operator: getTableAttr('operator', 'LIKE'),
+            comSearchRender: getTableAttr('comSearchRender', 'string'),
+            comSearchInputAttr: getTableAttr('comSearchInputAttr', ''),
         },
         form: {
             ...formBaseAttr,
@@ -810,7 +825,10 @@ export const designTypes: anyObj = {
     remoteSelects: {
         name: i18n.global.t('utils.remote select') + i18n.global.t('utils.choice') + i18n.global.t('crud.state.Multi'),
         table: {
-            operator: getTableAttr('operator', 'LIKE'),
+            render: getTableAttr('render', 'tags'),
+            operator: getTableAttr('operator', 'FIND_IN_SET'),
+            comSearchRender: getTableAttr('comSearchRender', 'remoteSelect'),
+            comSearchInputAttr: getTableAttr('comSearchInputAttr', ''),
         },
         form: {
             ...formBaseAttr,
