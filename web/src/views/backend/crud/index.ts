@@ -77,6 +77,7 @@ export interface FieldItem {
     tableBuildExclude?: boolean
     table: anyObj
     form: anyObj
+    uuid?: string
 }
 
 export const fieldItem: {

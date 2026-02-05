@@ -692,6 +692,7 @@ import FormItem from '/@/components/formItem/index.vue'
 import { useConfig } from '/@/stores/config'
 import { useTerminal } from '/@/stores/terminal'
 import { getArrayKey } from '/@/utils/common'
+import { uuid } from '/@/utils/random'
 import { buildValidatorData, regularVarName } from '/@/utils/validate'
 import { reloadServer } from '/@/utils/vite'
 import type { FieldItem, TableDesignChange, TableDesignChangeType } from '/@/views/backend/crud/index'
@@ -869,6 +870,9 @@ const onFieldDesignTypeChange = (designType: string) => {
         field.form[tKey] = field.form[tKey].value
     }
     state.fields[state.activateField] = handleFieldAttr(field)
+
+    // 保留字段的 uuid
+    state.fields[state.activateField].uuid = field.uuid
 
     // 询问是否切换至预设方案（除了字段名的属性全部重置）
     ElMessageBox.confirm(t('crud.crud.Reset generate type attr'), t('Reminder'), {
@@ -1289,6 +1293,7 @@ const handleFieldAttr = (field: FieldItem) => {
     }
     field.form = designTypeAttr.form
     field.table = designTypeAttr.table
+    field.uuid = uuid()
     return field
 }
 
