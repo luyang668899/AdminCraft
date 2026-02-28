@@ -1,16 +1,10 @@
 <br />
 <div align="center">
-    <img src="https://doc.buildadmin.com/images/logo.png" alt="" />
-    <h1 style="font-size: 36px;color: #2c3e50;font-weight: 600;margin: 0 0 6px 0;">BuildAdmin</h1>
-    <p style="font-size: 17px;color: #6a8bad;margin-bottom: 10px;">使用流行技术栈快速创建商业级后台管理系统</p>
-    <a href="https://uni.buildadmin.com" target="_blank">官网</a> |
-    <a href="https://demo.buildadmin.com" target="_blank">演示</a> |
-    <a href="https://ask.buildadmin.com" target="_blank">社区</a> |
-    <a href="https://doc.buildadmin.com/" target="_blank">文档</a> |
-    <a href="http://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=paVQA1dlpsVNHTla-ZAts6e4pPK4va9R&authKey=Eto0dq9DOuYldJPl6URFAXXHlG2AFQtPUBxNHEByEiuSg9OraxMniXIaWFt46OKi&noverify=0&group_code=1039646575" target="_blank">加群</a> |
-    <a href="https://doc.buildadmin.com/guide/" target="_blank">视频介绍</a> |
-    <a href="https://gitee.com/wonderful-code/buildadmin" target="_blank">Gitee仓库</a> |
-    <a href="https://github.com/build-admin/BuildAdmin" target="_blank">GitHub仓库</a>
+    <h1 style="font-size: 36px;color: #2c3e50;font-weight: 600;margin: 0 0 6px 0;">AdminCraft</h1>
+    <p style="font-size: 17px;color: #6a8bad;margin-bottom: 10px;">基于ThinkPHP 8.1.1和Vue 3.5.13的企业级后台管理系统框架</p>
+    <a href="https://github.com/luyang668899/AdminCraft" target="_blank">GitHub仓库</a> |
+    <a href="#使用说明">使用说明</a> |
+    <a href="#文档">文档</a>
 </div>
 <br />
 <p align="center">
@@ -90,18 +84,18 @@
 **💖 其他杂项：**
 角色组/管理员/管理员日志、 会员/会员组/会员余额、积分日志、系统配置/控制台/附件管理/个人资料管理等等、更多特性等你探索...
 
-### 安装使用
-💫 我们提供了完善的文档，对于熟悉 `ThinkPHP` 和 `Vue` 的用户，请使用大佬版：[快速上手](https://doc.buildadmin.com/guide/install/start.html) ，对于新人朋友，我们额外准备了各个操作系统的从零开始套餐：[Windows从零到一](https://doc.buildadmin.com/guide/install/windows.html) | [Linux从零到一](https://doc.buildadmin.com/guide/install/linux-bt.html) | [MacBook安装引导](https://doc.buildadmin.com/guide/install/macBook.html)
+### 使用说明
+- **安装指南**：请参考 [USER_MANUAL.md](USER_MANUAL.md) 文件中的安装步骤
+- **默认账号**：用户名 `admin`，密码 `123456`
+- **开发环境**：需要 PHP 8.1+、MySQL 5.7+、Node.js 16+
+
+### 文档
+- **使用说明书**：[USER_MANUAL.md](USER_MANUAL.md) - 详细的系统使用指南
+- **框架结构文档**：[PROJECT_FRAMEWORK.md](PROJECT_FRAMEWORK.md) - 系统架构和模块设计
 
 ### 重要信息
-- **演示站信息**：[演示站](https://demo.buildadmin.com) 账户为 `admin`，密码为 `123456`（特别注明：演示站数据无法修改，请下载源码安装以体验全部功能）
-- **问答社区**：[ask.buildadmin.com](https://ask.buildadmin.com)
-- **官方网站**：[uni.buildadmin.com](https://uni.buildadmin.com)
-- **文档地址**：[doc.buildadmin.com](https://doc.buildadmin.com/)
-- **备用文档**：[docs.buildadmin.net](https://docs.buildadmin.net/)
-- **交流群信息**：687903819（当前人数>960/1000）、751852082（当前人数>1990/2000）、1039646575
-- **代码仓库**：[Gitee仓库](https://gitee.com/wonderful-code/buildadmin)、[GitHub仓库](https://github.com/build-admin/BuildAdmin)
-- **官方邮箱**：[hi@buildadmin.com](mailto:hi@buildadmin.com)
+- **GitHub仓库**：[https://github.com/luyang668899/AdminCraft](https://github.com/luyang668899/AdminCraft)
+- **技术支持**：[luyang668899@example.com](mailto:luyang668899@example.com)
 
 ### 项目预览
 |  |  |
@@ -116,33 +110,22 @@
 ### 特别鸣谢
 💕 感谢巨人提供肩膀，排名不分先后
 - [Thinkphp](http://www.thinkphp.cn/)
-- [FastAdmin](https://gitee.com/karson/fastadmin)
 - [Vue](https://github.com/vuejs/core)
-- [vue-next-admin](https://gitee.com/lyt-top/vue-next-admin)
 - [Element Plus](https://github.com/element-plus/element-plus)
 - [TypeScript](https://github.com/microsoft/TypeScript)
 - [vue-router](https://github.com/vuejs/vue-router-next)
 - [vite](https://github.com/vitejs/vite)
 - [Pinia](https://github.com/vuejs/pinia)
 - [Axios](https://github.com/axios/axios)
-- [nprogress](https://github.com/rstacruz/nprogress)
-- [screenfull](https://github.com/sindresorhus/screenfull.js)
-- [mitt](https://github.com/developit/mitt)
-- [sass](https://github.com/sass/sass)
 - [echarts](https://github.com/apache/echarts)
 - [vueuse](https://github.com/vueuse/vueuse)
 - [lodash](https://github.com/lodash/lodash)
 - [eslint](https://github.com/eslint/eslint)
 - [prettier](https://github.com/prettier/prettier)
-- [Sortable](https://github.com/SortableJS/Sortable)
-- [v-code-diff](https://github.com/Shimada666/v-code-diff)
-- [clicaptcha](https://github.com/hooray/clicaptcha)
-- [phinx](https://github.com/cakephp/phinx)
-- [jetbrains](https://www.jetbrains.com/)
 
 ### 版权信息
-🔐 BuildAdmin 遵循 `Apache2.0` 开源协议发布，提供无需授权的免费使用。\
+🔐 AdminCraft 遵循 `Apache2.0` 开源协议发布，提供无需授权的免费使用。\
 本项目包含的第三方源码和二进制文件之版权信息另行标注。
 
 ### 支持项目
-💕 无需捐赠，如果觉得项目不错，或者已经在使用了，希望你可以去 [Github](https://github.com/build-admin/BuildAdmin) 或者 [Gitee](https://gitee.com/wonderful-code/buildadmin) 帮我们点个 ⭐ Star，这将是对我们极大的鼓励与支持。
+💕 无需捐赠，如果觉得项目不错，或者已经在使用了，希望你可以去 [Github](https://github.com/luyang668899/AdminCraft) 帮我们点个 ⭐ Star，这将是对我们极大的鼓励与支持。

@@ -1,8 +1,8 @@
-# 项目框架设计文档
+# AdminCraft 框架结构文档
 
 ## 1. 项目架构概述
 
-本项目采用前后端分离架构，后端基于 ThinkPHP 8.1.1，前端基于 Vue 3.5.13 + TypeScript + Element Plus。系统设计遵循模块化、可扩展性和可维护性原则，支持企业级应用开发。
+AdminCraft 采用前后端分离架构，后端基于 ThinkPHP 8.1.1，前端基于 Vue 3.5.13 + TypeScript + Element Plus。系统设计遵循模块化、可扩展性和可维护性原则，支持企业级应用开发。
 
 ## 2. 目录结构
 
