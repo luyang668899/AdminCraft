@@ -35,6 +35,14 @@ export const fieldData: FieldData = {
         ...npuaFalse(),
         null: true,
     },
+    float: {
+        type: 'decimal',
+        length: 10,
+        precision: 2,
+        defaultType: 'NULL',
+        ...npuaFalse(),
+        null: true,
+    },
     radio: {
         type: 'enum',
         length: 0,
@@ -194,6 +202,23 @@ export const fieldData: FieldData = {
         precision: 0,
         defaultType: 'EMPTY STRING',
         ...npuaFalse(),
+    },
+    spk: {
+        type: 'char',
+        length: 20,
+        precision: 0,
+        defaultType: 'NULL',
+        ...npuaFalse(),
+        null: true,
+    },
+    weigh: {
+        type: 'int',
+        length: 10,
+        precision: 0,
+        default: '0',
+        defaultType: 'INPUT',
+        ...npuaFalse(),
+        unsigned: true,
     },
 }
 

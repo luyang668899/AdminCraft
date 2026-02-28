@@ -93,15 +93,15 @@
 ### 安装使用
 💫 我们提供了完善的文档，对于熟悉 `ThinkPHP` 和 `Vue` 的用户，请使用大佬版：[快速上手](https://doc.buildadmin.com/guide/install/start.html) ，对于新人朋友，我们额外准备了各个操作系统的从零开始套餐：[Windows从零到一](https://doc.buildadmin.com/guide/install/windows.html) | [Linux从零到一](https://doc.buildadmin.com/guide/install/linux-bt.html) | [MacBook安装引导](https://doc.buildadmin.com/guide/install/macBook.html)
 
-### 联系我们
-- [演示站](https://demo.buildadmin.com) 账户：`admin`，密码：`123456`（演示站数据无法修改，请下载源码安装体验全部功能）
-- [问答社区：ask.buildadmin.com](https://ask.buildadmin.com)
-- [官方网站：uni.buildadmin.com](https://uni.buildadmin.com)
-- [文档：doc.buildadmin.com](https://doc.buildadmin.com/)
-- 加群：[687903819（>960/1000）](https://jq.qq.com/?_wv=1027&k=QwtXa14c)、[751852082（>1990/2000）](https://jq.qq.com/?_wv=1027&k=c8a7iSk8)、[1039646575](http://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=paVQA1dlpsVNHTla-ZAts6e4pPK4va9R&authKey=Eto0dq9DOuYldJPl6URFAXXHlG2AFQtPUBxNHEByEiuSg9OraxMniXIaWFt46OKi&noverify=0&group_code=1039646575)
-- [Gitee仓库](https://gitee.com/wonderful-code/buildadmin)、[GitHub仓库](https://github.com/build-admin/BuildAdmin)
-- [备用文档：docs.buildadmin.net](https://docs.buildadmin.net/)
-- [官方邮箱 hi@buildadmin.com](mailto:hi@buildadmin.com)
+### 重要信息
+- **演示站信息**：[演示站](https://demo.buildadmin.com) 账户为 `admin`，密码为 `123456`（特别注明：演示站数据无法修改，请下载源码安装以体验全部功能）
+- **问答社区**：[ask.buildadmin.com](https://ask.buildadmin.com)
+- **官方网站**：[uni.buildadmin.com](https://uni.buildadmin.com)
+- **文档地址**：[doc.buildadmin.com](https://doc.buildadmin.com/)
+- **备用文档**：[docs.buildadmin.net](https://docs.buildadmin.net/)
+- **交流群信息**：687903819（当前人数>960/1000）、751852082（当前人数>1990/2000）、1039646575
+- **代码仓库**：[Gitee仓库](https://gitee.com/wonderful-code/buildadmin)、[GitHub仓库](https://github.com/build-admin/BuildAdmin)
+- **官方邮箱**：[hi@buildadmin.com](mailto:hi@buildadmin.com)
 
 ### 项目预览
 |  |  |

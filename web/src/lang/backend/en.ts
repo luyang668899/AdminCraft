@@ -1,6 +1,10 @@
 /**
  * backend common language package
  */
+import content from './en/content'
+import ecommerce from './en/ecommerce'
+import crm from './en/crm'
+
 export default {
     Balance: 'Balance',
     Integral: 'Integral',
@@ -99,4 +103,7 @@ export default {
         'Reload hot server tips 3':
             'The pause of hot updates does not affect the already loaded functions. You can continue to operate and click to restart the hot update service after everything is ready.',
     },
+    content,
+    ecommerce,
+    crm,
 }

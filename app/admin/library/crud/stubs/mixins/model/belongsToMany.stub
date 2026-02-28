@@ -1,0 +1,4 @@
+    public function {%relationMethod%}(): \think\model\relation\BelongsToMany
+    {
+        return $this->{%relationMode%}({%relationClassName%}, '{%pivotTable%}', '{%foreignKey%}', '{%otherKey%}');
+    }

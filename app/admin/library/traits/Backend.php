@@ -298,4 +298,171 @@ trait Backend
     {
 
     }
+
+    /**
+     * 导出数据
+     * @throws Throwable
+     */
+    public function export(): void
+    {
+        $format = $this->request->get('format', 'excel');
+        $fields = $this->request->get('fields', []);
+        $search = $this->request->get('search', []);
+        $order = $this->request->get('order', '');
+
+        list($where, $alias, $limit, $order) = $this->queryBuilder();
+        $data = $this->model
+            ->field($this->indexField)
+            ->withJoin($this->withJoinTable, $this->withJoinType)
+            ->alias($alias)
+            ->where($where)
+            ->order($order)
+            ->select();
+
+        if (empty($data)) {
+            $this->error(__('No data to export'));
+        }
+
+        // 处理导出字段
+        if (!empty($fields)) {
+            $exportData = [];
+            foreach ($data as $item) {
+                $row = [];
+                foreach ($fields as $field) {
+                    if (isset($item[$field])) {
+                        $row[$field] = $item[$field];
+                    }
+                }
+                $exportData[] = $row;
+            }
+            $data = $exportData;
+        }
+
+        // 导出文件名
+        $filename = parse_name(basename(str_replace('\\', '/', get_class($this->model)))) . '_' . date('YmdHis');
+
+        switch ($format) {
+            case 'csv':
+                $this->exportCsv($data, $filename);
+                break;
+            case 'excel':
+            default:
+                $this->exportExcel($data, $filename);
+                break;
+        }
+    }
+
+    /**
+     * 导出为CSV格式
+     * @param array $data 数据
+     * @param string $filename 文件名
+     */
+    protected function exportCsv(array $data, string $filename): void
+    {
+        header('Content-Type: text/csv; charset=utf-8');
+        header('Content-Disposition: attachment; filename=' . $filename . '.csv');
+        header('Cache-Control: max-age=0');
+
+        $output = fopen('php://output', 'w');
+        if ($output) {
+            // 输出BOM，解决中文乱码
+            fprintf($output, chr(0xEF) . chr(0xBB) . chr(0xBF));
+            
+            // 输出表头
+            if (!empty($data)) {
+                fputcsv($output, array_keys($data[0]));
+                // 输出数据
+                foreach ($data as $row) {
+                    fputcsv($output, $row);
+                }
+            }
+            fclose($output);
+        }
+        exit;
+    }
+
+    /**
+     * 导出为Excel格式
+     * @param array $data 数据
+     * @param string $filename 文件名
+     */
+    protected function exportExcel(array $data, string $filename): void
+    {
+        header('Content-Type: application/vnd.ms-excel; charset=utf-8');
+        header('Content-Disposition: attachment; filename=' . $filename . '.xls');
+        header('Cache-Control: max-age=0');
+
+        $output = fopen('php://output', 'w');
+        if ($output) {
+            // 输出BOM，解决中文乱码
+            fprintf($output, chr(0xEF) . chr(0xBB) . chr(0xBF));
+            
+            // 输出表头
+            if (!empty($data)) {
+                fputcsv($output, array_keys($data[0]), "\t");
+                // 输出数据
+                foreach ($data as $row) {
+                    fputcsv($output, $row, "\t");
+                }
+            }
+            fclose($output);
+        }
+        exit;
+    }
+
+    /**
+     * 批量操作
+     * @throws Throwable
+     */
+    public function batchAction(): void
+    {
+        $action = $this->request->param('action');
+        $ids = $this->request->param('ids', []);
+
+        if (empty($action) || empty($ids)) {
+            $this->error(__('Parameter error'));
+        }
+
+        $where             = [];
+        $dataLimitAdminIds = $this->getDataLimitAdminIds();
+        if ($dataLimitAdminIds) {
+            $where[] = [$this->dataLimitField, 'in', $dataLimitAdminIds];
+        }
+
+        $where[] = [$this->model->getPk(), 'in', $ids];
+        $data = $this->model->where($where)->select();
+
+        if (empty($data)) {
+            $this->error(__('No records found'));
+        }
+
+        // 执行批量操作
+        $result = false;
+        $this->model->startTrans();
+        try {
+            foreach ($data as $item) {
+                switch ($action) {
+                    case 'enable':
+                        $item->status = 1;
+                        break;
+                    case 'disable':
+                        $item->status = 0;
+                        break;
+                    // 可以添加更多批量操作类型
+                }
+                $item->save();
+            }
+            $this->model->commit();
+            $result = true;
+        } catch (Throwable $e) {
+            $this->model->rollback();
+            $this->error($e->getMessage());
+        }
+
+        if ($result) {
+            $this->success(__('Batch operation successful'));
+        } else {
+            $this->error(__('Batch operation failed'));
+        }
+    }
 }

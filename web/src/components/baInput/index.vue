@@ -249,6 +249,25 @@ export default defineComponent({
                         )
                 },
             ],
+            [
+                'float',
+                () => {
+                    return () =>
+                        createVNode(
+                            resolveComponent('el-input-number'),
+                            {
+                                class: 'w100',
+                                'controls-position': 'right',
+                                step: 0.01,
+                                precision: 2,
+                                ...attrs.value,
+                                modelValue: isString(props.modelValue) ? Number(props.modelValue) : props.modelValue,
+                                'onUpdate:modelValue': onValueUpdate,
+                            },
+                            slots
+                        )
+                },
+            ],
             ['textarea', bases],
             ['password', bases],
             ['radio', rc],

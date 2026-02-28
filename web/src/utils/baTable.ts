@@ -395,6 +395,25 @@ export default class baTable {
                 },
             ],
             [
+                'export',
+                () => {
+                    if (this.runBefore('export', { data }) === false) return
+                    this.api.export(this.table.filter).then((res) => {
+                        this.runAfter('export', { res })
+                    })
+                },
+            ],
+            [
+                'batch-action',
+                () => {
+                    if (this.runBefore('batchAction', { action: data.action, ids: this.getSelectionIds() }) === false) return
+                    this.api.batchAction(data.action, this.getSelectionIds()).then((res) => {
+                        this.onTableHeaderAction('refresh', { event: 'batch-action', action: data.action })
+                        this.runAfter('batchAction', { res })
+                    })
+                },
+            ],
+            [
                 'default',
                 () => {
                     console.warn('No action defined')

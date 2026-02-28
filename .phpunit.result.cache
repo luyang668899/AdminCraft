@@ -1,0 +1,1 @@
+{"version":1,"defects":{"UserTest::testUserCreateAndQuery":4,"UserTest::testUserValidation":4},"times":{"UserTest::testUserCreateAndQuery":0.006,"UserTest::testUserValidation":0}}

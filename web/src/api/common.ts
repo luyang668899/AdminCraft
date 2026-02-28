@@ -375,4 +375,29 @@ export class baTableApi {
             data,
         })
     }
+
+    /**
+     * 表格导出接口的请求方法
+     */
+    export(filter: BaTable['filter'] = {}) {
+        return createAxios({
+            url: this.controllerUrl + 'export',
+            method: 'get',
+            params: filter,
+        })
+    }
+
+    /**
+     * 表格批量操作接口的请求方法
+     */
+    batchAction(action: string, ids: string[]) {
+        return createAxios({
+            url: this.controllerUrl + 'batchAction',
+            method: 'post',
+            data: {
+                action,
+                ids,
+            },
+        })
+    }
 }

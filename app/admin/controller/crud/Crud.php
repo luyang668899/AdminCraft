@@ -679,14 +679,24 @@ class Crud extends Backend
                 $this->controllerData['attr']['withJoinTable'][$relationName] = $relationName;
 
                 // 模型方法代码
+                $relationMode = $field['form']['relationMode'] ?? 'belongsTo';
                 $relationData                                         = [
                     'relationMethod'     => $relationName,
-                    'relationMode'       => 'belongsTo',
+                    'relationMode'       => $relationMode,
                     'relationPrimaryKey' => $field['form']['remote-pk'] ?? 'id',
                     'relationForeignKey' => $field['name'],
                     'relationClassName'  => str_replace(['.php', '/'], ['', '\\'], '\\' . $field['form']['remote-model']) . "::class",
                 ];
-                $this->modelData['relationMethodList'][$relationName] = Helper::assembleStub('mixins/model/belongsTo', $relationData);
+                
+                // 处理不同的关联类型
+                if ($relationMode == 'belongsToMany') {
+                    $relationData['pivotTable'] = $field['form']['pivotTable'] ?? '';
+                    $relationData['foreignKey'] = $field['form']['foreignKey'] ?? $field['name'];
+                    $relationData['otherKey'] = $field['form']['otherKey'] ?? 'id';
+                    $this->modelData['relationMethodList'][$relationName] = Helper::assembleStub('mixins/model/belongsToMany', $relationData);
+                } else {
+                    $this->modelData['relationMethodList'][$relationName] = Helper::assembleStub('mixins/model/' . $relationMode, $relationData);
+                }
 
                 // 查询时显示的字段
                 if ($relationFields) {
